@@ -28,7 +28,7 @@ class TransactionsRepository {
       (accum: Balance, transaction: Transaction) => {
         if (transaction.type === 'income') {
           accum.income += transaction.value;
-        } else {
+        } else if (transaction.type === 'outcome') {
           accum.outcome += transaction.value;
         }
 
@@ -40,6 +40,8 @@ class TransactionsRepository {
         total: 0,
       },
     );
+
+    balance.total = balance.income - balance.outcome;
 
     return balance;
   }
